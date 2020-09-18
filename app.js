@@ -15,6 +15,7 @@ const todoList = document.querySelector("#todo-list");
 const clearTodo = document.querySelector("#clear-todos");
 
 todoForm.addEventListener("submit", addTodo);
+todoList.addEventListener("click", deleteTodo);
 
 function addTodo(e) {
   e.preventDefault();
@@ -24,7 +25,7 @@ function addTodo(e) {
 
   // menambah class element li
   li.className =
-    "list-group-item d-flex justify-content-between align-items-center mb-1";
+    "list-group-item d-flex justify-content-between align-items-center mb-1 ";
 
   //menambah clihdren ke li
   li.appendChild(document.createTextNode(todoInput.value));
@@ -34,7 +35,7 @@ function addTodo(e) {
 
   // memberi property untuk a element
   a.href = "#";
-  a.className = "badge badge-danger";
+  a.className = "badge badge-danger delete-todo";
 
   //   add child
   a.innerHTML = "Delete";
@@ -47,5 +48,17 @@ function addTodo(e) {
 
   todoList.appendChild(li);
 
-  console.log(li);
+//   console.log(li);
+}
+
+function deleteTodo(e) {
+  e.preventDefault();
+
+  if (e.target.classList.contains("delete-todo")) {
+    const parent = e.target.parentElement;
+
+    parent.remove();
+
+    // console.log(parent);
+  }
 }
