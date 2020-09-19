@@ -48,17 +48,21 @@ function addTodo(e) {
 
   todoList.appendChild(li);
 
-//   console.log(li);
+  //   console.log(li);
+
+  // mengkosongkan todoinput setelah input data
+  todoInput.value = "";
 }
 
 function deleteTodo(e) {
   e.preventDefault();
 
   if (e.target.classList.contains("delete-todo")) {
-    const parent = e.target.parentElement;
+    // membuat alert confirm
+    if (confirm(`Apakah Anda Akan menghapus Data ?`)) {
+      const parent = e.target.parentElement;
 
-    parent.remove();
-
-    // console.log(parent);
+      parent.remove();
+    }
   }
 }
