@@ -12,46 +12,52 @@ const todoForm = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
 const filterInput = document.querySelector("#filter-input");
 const todoList = document.querySelector("#todo-list");
-const clearTodo = document.querySelector("#clear-todos");
+const clearButton = document.querySelector("#clear-todos");
 
 todoForm.addEventListener("submit", addTodo);
 todoList.addEventListener("click", deleteTodo);
+clearButton.addEventListener("click", clearTodos);
 
 function addTodo(e) {
   e.preventDefault();
+  
+  if(todoInput.value) {
+    // membuat li element
+    const li = document.createElement("li");
+  
+    // menambah class element li
+    li.className =
+      "list-group-item d-flex justify-content-between align-items-center mb-1 ";
+  
+    //menambah clihdren ke li
+    li.appendChild(document.createTextNode(todoInput.value));
+  
+    //   Membuat Delete Button a href
+    const a = document.createElement("a");
+  
+    // memberi property untuk a element
+    a.href = "#";
+    a.className = "badge badge-danger delete-todo";
+  
+    //   add child
+    a.innerHTML = "Delete";
+  
+    //   menyelipkan elemen a ke dalam childern li
+    li.appendChild(a);
+  
+    //   add element li yang dibuat oleh javascript
+    // ke dalam todolist
+  
+    todoList.appendChild(li);
+  
+    //   console.log(li);
+  
+    // mengkosongkan todoinput setelah input data
+    todoInput.value = "";
+  } else {
+    alert("Todo Tidak Boleh Kosong!!")
+  }
 
-  // membuat li element
-  const li = document.createElement("li");
-
-  // menambah class element li
-  li.className =
-    "list-group-item d-flex justify-content-between align-items-center mb-1 ";
-
-  //menambah clihdren ke li
-  li.appendChild(document.createTextNode(todoInput.value));
-
-  //   Membuat Delete Button a href
-  const a = document.createElement("a");
-
-  // memberi property untuk a element
-  a.href = "#";
-  a.className = "badge badge-danger delete-todo";
-
-  //   add child
-  a.innerHTML = "Delete";
-
-  //   menyelipkan elemen a ke dalam childern li
-  li.appendChild(a);
-
-  //   add element li yang dibuat oleh javascript
-  // ke dalam todolist
-
-  todoList.appendChild(li);
-
-  //   console.log(li);
-
-  // mengkosongkan todoinput setelah input data
-  todoInput.value = "";
 }
 
 function deleteTodo(e) {
@@ -65,4 +71,9 @@ function deleteTodo(e) {
       parent.remove();
     }
   }
+}
+
+function clearTodos() {
+  // menghapus list todo
+  todoList.innerHTML = "";
 }
