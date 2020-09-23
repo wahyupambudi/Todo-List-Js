@@ -8,16 +8,33 @@
 //     alert(`Umur Kamu ${2020-yearBirth} tahun, Gas Gan Masukk Aja!`)
 // }
 
+// add UI element
+
 const todoForm = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
 const filterInput = document.querySelector("#filter-input");
 const todoList = document.querySelector("#todo-list");
 const clearButton = document.querySelector("#clear-todos");
 
-todoForm.addEventListener("submit", addTodo);
-todoList.addEventListener("click", deleteTodo);
-clearButton.addEventListener("click", clearTodos);
-filterInput.addEventListener("keyup", filterTodos);
+// this eventListener
+function immediateLoadEventListener();
+
+function immediateLoadEventListener() {
+
+  // this event for add todo
+  todoForm.addEventListener("submit", addTodo);
+
+  // this event for delete todo
+  todoList.addEventListener("click", deleteTodo);
+
+  // this event delete all todo
+  clearButton.addEventListener("click", clearTodos);
+
+  // this event for filter todo
+  filterInput.addEventListener("keyup", filterTodos);
+}
+
+// this DOM functions
 
 function addTodo(e) {
   e.preventDefault();
@@ -46,18 +63,34 @@ function addTodo(e) {
     //   menyelipkan elemen a ke dalam childern li
     li.appendChild(a);
 
-    //   add element li yang dibuat oleh javascript
+    // add element li yang dibuat oleh javascript
     // ke dalam todolist
 
     todoList.appendChild(li);
-
     //   console.log(li);
+
+    // add to storage
+    addTodoLocalStorage(todoInput.value);
 
     // mengkosongkan todoinput setelah input data
     todoInput.value = "";
   } else {
     alert("Todo Tidak Boleh Kosong!!");
   }
+}
+
+function addTodoLocalStorage(todoInputValue) {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+
+  // memasukan ke local storage
+  todos.push(todoInputValue);
+
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function deleteTodo(e) {
